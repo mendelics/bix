@@ -15,9 +15,9 @@ import (
 	"github.com/biogo/hts/bgzf"
 	"github.com/biogo/hts/bgzf/index"
 	"github.com/biogo/hts/tabix"
-	"github.com/brentp/irelate/interfaces"
-	"github.com/brentp/irelate/parsers"
-	"github.com/brentp/vcfgo"
+	"github.com/mendelics/irelate/interfaces"
+	"github.com/mendelics/irelate/parsers"
+	"github.com/mendelics/vcfgo"
 	"github.com/pkg/errors"
 )
 
@@ -197,7 +197,7 @@ func (tbx *Bix) ChunkedReader(chrom string, start, end int) (io.ReadCloser, erro
 	if err == index.ErrInvalid {
 		return index.NewChunkReader(tbx.bgzf, []bgzf.Chunk{})
 	} else if err == index.ErrNoReference {
-		log.Printf("chromosome %s not found in %s\n", chrom, tbx.path)
+		// log.Printf("chromosome %s not found in %s\n", chrom, tbx.path)
 		return index.NewChunkReader(tbx.bgzf, []bgzf.Chunk{})
 	} else if err != nil {
 		return nil, errors.Wrapf(err, "bix: error reading Chunks from %s", tbx.path)
